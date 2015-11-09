@@ -10,7 +10,6 @@ type
     S: string;
     N: Integer;
     procedure UpdateMemo;
-//    procedure UpdateGauge;
     procedure Execute; override;
   end;
 var
@@ -37,8 +36,8 @@ begin
   Base.SQLVisitor.SQL.Append('ORDER BY Visitor.name_visitor');
   Base.SQLVisitor.Active:=True;
   if Base.SQLVisitor.RecordCount=0 then VisitorAdd.BTNAddVisitor.Enabled:=True
- else VisitorAdd.BTNAddVisitor.Enabled:=False;
-  Application.ProcessMessages;
+  else VisitorAdd.BTNAddVisitor.Enabled:=False;
+   Application.ProcessMessages;
 end;
 
 end.

@@ -164,7 +164,6 @@ begin
   Base.SQLPayClient.Parameters.ParamByName('idVisitor').Value:=id_visitor;
   Base.SQLPayClient.Active:=True;
   //--------------
-
   sale:=Base.SQLVisitCurrentSessiondiscount_visit.Value;
   A:=SecondsBetween(Base.SQLVisitCurrentSessionbegin_visit.value,now);
   end_user_visit:=DateTimeToStr(Now);
@@ -200,9 +199,6 @@ begin
   H := (minute*60) div 3600;
   M := ((minute*60) - H * 3600) div 60;
   ShowMessage('Провел в "Тепле" : '+Format('%d ч %d м %', [H, M]));
-  
-
-
  end;
  //Application.CreateForm(TCalculateUser,CalculateUser);
  {CalculateUser.LBLFioUser.Caption:=Base.SQLVisitCurrentSessionname_visitor.AsString;
