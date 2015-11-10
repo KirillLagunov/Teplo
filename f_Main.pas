@@ -199,6 +199,10 @@ begin
   H := (minute*60) div 3600;
   M := ((minute*60) - H * 3600) div 60;
   ShowMessage('Провел в "Тепле" : '+Format('%d ч %d м %', [H, M]));
+  Base.SQLEdit.Active:=False;
+  Base.SQLEdit.SQL.Clear;
+  Base.SQLEdit.SQL.Append('INSERT INTO Temp (date_finish,pay_visit,minute_visit,paysale_visit,id_visit,id_visitor,fio_fisitor)');
+  Base.SQLEdit.SQL.Append('VALUES ('+);
  end;
  //Application.CreateForm(TCalculateUser,CalculateUser);
  {CalculateUser.LBLFioUser.Caption:=Base.SQLVisitCurrentSessionname_visitor.AsString;
