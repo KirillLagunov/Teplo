@@ -131,13 +131,13 @@ begin
  begin
   Main.BTNCloseSession.Enabled:=True;
   Main.BTNChangeTime.Enabled:=False;
-  Main.BTNPay.Enabled:=False;
+  //Main.BTNPay.Enabled:=False;
  end
  else
  begin
   Main.BTNCloseSession.Enabled:=False;
   Main.BTNCloseSession.Enabled:=True;
-  Main.BTNPay.Enabled:=True;
+  //Main.BTNPay.Enabled:=True;
  end;
  Base.SQLEdit.Active:=False;
 end;

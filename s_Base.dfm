@@ -1,9 +1,9 @@
 object Base: TBase
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 394
-  Top = 147
-  Height = 418
+  Left = 189
+  Top = 369
+  Height = 417
   Width = 797
   object conBase: TADOConnection
     ConnectionString = 
@@ -763,6 +763,7 @@ object Base: TBase
   object SQLTemp: TADOQuery
     Connection = conBase
     CursorType = ctStatic
+    OnCalcFields = SQLTempCalcFields
     Parameters = <>
     SQL.Strings = (
       'SELECT * FROM Temp')
@@ -793,6 +794,11 @@ object Base: TBase
     object SQLTempfio_visitor: TWideStringField
       FieldName = 'fio_visitor'
       Size = 50
+    end
+    object SQLTempdt_calc: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'dt_calc'
+      Calculated = True
     end
   end
   object DSTemp: TDataSource

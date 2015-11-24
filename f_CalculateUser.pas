@@ -11,18 +11,15 @@ uses
 
 type
   TCalculateUser = class(TForm)
-    LBLFioUser: TsLabel;
-    LBLMinute: TsLabel;
-    LBLPay: TsLabel;
     BTNCalculate: TsBitBtn;
     BTNCancel: TsBitBtn;
     GRIDTempDBTableView1: TcxGridDBTableView;
     GRIDTempLevel1: TcxGridLevel;
     GRIDTemp: TcxGrid;
     GRIDTempDBTableView1pay_visit: TcxGridDBColumn;
-    GRIDTempDBTableView1minute_visit: TcxGridDBColumn;
     GRIDTempDBTableView1paysale_visit: TcxGridDBColumn;
     GRIDTempDBTableView1fio_visitor: TcxGridDBColumn;
+    GRIDTempDBTableView1dt_calc: TcxGridDBColumn;
     procedure BTNCancelClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BTNCalculateClick(Sender: TObject);
@@ -49,31 +46,40 @@ end;
 procedure TCalculateUser.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
+ Base.SQLEdit.Active:=False;
+ Base.SQLEdit.SQL.Clear;
+ BAse.SQLEdit.SQL.Append('DELETE * From Temp');
+ Base.SQLEdit.ExecSQL;
+ Base.SQLEdit.Active:=False;
+ Base.SQLEdit.SQL.Clear;
+ Base.SQLEdit.SQL.Append('Alter table Temp alter column id autoincrement(1,1)');
+ Base.SQLEdit.ExecSQL;
  Action:=caFree;
 end;
 
 procedure TCalculateUser.BTNCalculateClick(Sender: TObject);
-var
-  id:string;
 begin
- id:=Base.SQLVisitCurrentSessionid_visit.AsString;
- Base.SQLUpdateVisit.Active:=False;
- Base.SQLUpdateVisit.Parameters.ParamByName('dateFinish').Value:=StrToDateTime(end_user_visit);
- Base.SQLUpdateVisit.Parameters.ParamByName('payVisit').Value:=pay_user_visit;
- Base.SQLUpdateVisit.Parameters.ParamByName('minuteVisit').Value:=minute_user_visit;
- Base.SQLUpdateVisit.Parameters.ParamByName('paysaleVisit').Value:=paysale_user_visit;
- Base.SQLUpdateVisit.Parameters.ParamByName('idVisit').Value:=Base.SQLVisitCurrentSessionid_visit.Value;
- Base.SQLUpdateVisit.ExecSQL;
- Base.SQLUpdateVisitor.Active:=False;
- Base.SQLUpdateVisitor.Parameters.ParamByName('dateFinish').Value:=StrToDateTime(end_user_visit);
- Base.SQLUpdateVisitor.Parameters.ParamByName('minuteVisit').Value:=minute_user_visit;
- Base.SQLUpdateVisitor.Parameters.ParamByName('idVisitor').Value:=Base.SQLVisitCurrentSessionid_visitor.Value;
- Base.SQLUpdateVisitor.ExecSQL;
- Base.SQLVisitCurrentSession.Active:=False;
- Base.SQLVisitCurrentSession.Active:=True;
- Base.SQLVisitCurrentSession.Locate('id_visit',id,[]);
- CheckVisitorNow;
- CalculateUser.Close;
+ Base.SQLTemp.First;
+ while not Base.SQLTemp.Eof do
+ begin
+  Base.SQLUpdateVisit.Active:=False;
+  Base.SQLUpdateVisit.Parameters.ParamByName('dateFinish').Value:=Base.SQLTempdate_finish.Value;
+  Base.SQLUpdateVisit.Parameters.ParamByName('payVisit').Value:=Base.SQLTemppay_visit.Value;
+  Base.SQLUpdateVisit.Parameters.ParamByName('minuteVisit').Value:=Base.SQLTempminute_visit.Value;
+  Base.SQLUpdateVisit.Parameters.ParamByName('paysaleVisit').Value:=Base.SQLTemppaysale_visit.Value;
+  Base.SQLUpdateVisit.Parameters.ParamByName('idVisit').Value:=Base.SQLTempid_visit.Value;
+  Base.SQLUpdateVisit.ExecSQL;
+  Base.SQLUpdateVisitor.Active:=False;
+  Base.SQLUpdateVisitor.Parameters.ParamByName('dateFinish').Value:=Base.SQLTempdate_finish.Value;
+  Base.SQLUpdateVisitor.Parameters.ParamByName('minuteVisit').Value:=Base.SQLTempminute_visit.Value;
+  Base.SQLUpdateVisitor.Parameters.ParamByName('idVisitor').Value:=Base.SQLTempid_visitor.Value;
+  Base.SQLUpdateVisitor.ExecSQL;
+  Base.SQLTemp.Next;
+ end;
+  Base.SQLVisitCurrentSession.Active:=False;
+  Base.SQLVisitCurrentSession.Active:=True;
+  CheckVisitorNow;
+  CalculateUser.Close;
 end;
 
 end.

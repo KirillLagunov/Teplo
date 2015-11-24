@@ -27,7 +27,7 @@ interface
 
  const
    PSWDBASE='Teplo51';
-   APPVER='1.0.5';
+   APPVER='1.1.0';
    APPTITLE='Антикафе "Тепло!"';
    ERRORDBCONNECTED='Ошибка соединения с Базой Данных';
    ERRORDBUSERNOTFOUND='Имя пользователя или пароль указан неверно';

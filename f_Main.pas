@@ -61,7 +61,6 @@ type
     edtid_visit: TsDBEdit;
     SLIDENow: TsSlider;
     N9: TMenuItem;
-    BTNCheck: TsBitBtn;
     procedure N5Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure BTNExitClick(Sender: TObject);
@@ -152,7 +151,7 @@ var
   a:int64;
   i,sale,minute:integer;
   pay:Real;
-  H, M, S: Integer;
+  H, M: Integer;
 begin
  for i:=0 to GRIDWorkDBTableView1.Controller.SelectedRowCount-1 do
  begin
@@ -173,42 +172,45 @@ begin
    if minute<=10 then
    begin
     pay:=0;
-    pay_user_visit:=FloatToStr(pay);
+    pay_user_visit:=(FormatFloat('0',(pay)));
    end
    else
     if (minute>10) and (minute<=60) then
     begin
      pay:=StrToFloat(first_hour_pay);
-     pay_user_visit:=FloatToStr(pay);
+     pay_user_visit:=(FormatFloat('0',(pay)));
     end
     else
      if minute>60 then
      begin
       pay:=StrToFloat(first_hour_pay)+((minute-60)*strtofloat(one_minute_pay));
-      pay_user_visit:=FloatToStr(pay);
+      pay_user_visit:=(FormatFloat('0',(pay)));
      end;
   end
   else if Base.SQLPayClient.RecordCount>1 then
   begin
    pay:=minute*strtofloat(one_minute_pay);
-   pay_user_visit:=FloatToStr(pay);
+   pay_user_visit:=(FormatFloat('0',(pay)));
   end;
   pay:=pay-((pay/100)*sale);
   paysale_user_visit:=(FormatFloat('0',(pay)));
   minute_user_visit:=IntToStr(minute);
-  H := (minute*60) div 3600;
-  M := ((minute*60) - H * 3600) div 60;
-  ShowMessage('Провел в "Тепле" : '+Format('%d ч %d м %', [H, M]));
-  Base.SQLEdit.Active:=False;
-  Base.SQLEdit.SQL.Clear;
-  Base.SQLEdit.SQL.Append('INSERT INTO Temp (date_finish,pay_visit,minute_visit,paysale_visit,id_visit,id_visitor,fio_fisitor)');
-  Base.SQLEdit.SQL.Append('VALUES ('+);
+  H:=(minute*60) div 3600;
+  M:=((minute*60)-H*3600) div 60;
+  if Base.SQLVisitCurrentSessiontime_visit.Value=0 then
+  begin
+   Base.SQLTemp.Active:=False;
+   Base.SQLEdit.Active:=False;
+   Base.SQLEdit.SQL.Clear;
+   Base.SQLEdit.SQL.Append('INSERT INTO Temp (date_finish,pay_visit,minute_visit,paysale_visit,id_visit,id_visitor,fio_visitor)');
+   Base.SQLEdit.SQL.Append('VALUES ( =:dateF,'+pay_user_visit+','+inttostr(minute)+','+paysale_user_visit+','+Base.SQLVisitCurrentSessionid_visit.AsString+','+id_visitor+','+#39+Base.SQLVisitCurrentSessionname_visitor.AsString+#39+')');
+   Base.SQLEdit.Parameters.ParamByName('dateF').Value:=end_user_visit;
+   Base.SQLEdit.ExecSQL;
+  end;
  end;
- //Application.CreateForm(TCalculateUser,CalculateUser);
- {CalculateUser.LBLFioUser.Caption:=Base.SQLVisitCurrentSessionname_visitor.AsString;
- CalculateUser.LBLMinute.Caption:='Провел в "Тепле" : '+Format('%d ч %d м %', [H, M]);
- CalculateUser.LBLPay.Caption:='К оплате : '+paysale_user_visit+' руб.';
- CalculateUser.ShowModal;   }
+ Application.CreateForm(TCalculateUser,CalculateUser);
+ Base.SQLTemp.Active:=True;
+ CalculateUser.ShowModal;
 end;
 
 procedure TMain.BTNChangeTimeClick(Sender: TObject);
@@ -228,11 +230,13 @@ begin
  begin
   BTNChangeTime.Enabled:=False;
   BTNPay.Enabled:=False;
+  Main.N9.Enabled:=False;
  end
  else
  begin
   BTNChangeTime.Enabled:=True;
   BTNPay.Enabled:=True;
+  Main.N9.Enabled:=True;
  end;
 end;
 
@@ -315,8 +319,8 @@ var
 begin
  for i:=0 to GRIDWorkDBTableView1.Controller.SelectedRowCount-1 do
  begin
-   GRIDWorkDBTableView1.DataController.FocusedRecordIndex:=GRIDWorkDBTableView1.Controller.SelectedRows[i].Index;
-   ShowMessage(GRIDWorkDBTableView1.DataController.DataSet.FieldValues['id_visitor']);
+  GRIDWorkDBTableView1.DataController.FocusedRecordIndex:=GRIDWorkDBTableView1.Controller.SelectedRows[i].Index;
+  ShowMessage(GRIDWorkDBTableView1.DataController.DataSet.FieldValues['id_visitor']);
  end;
 end;
 

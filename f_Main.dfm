@@ -3571,16 +3571,6 @@ object Main: TMain
           Images = Res.ILPic
         end
       end
-      object BTNCheck: TsBitBtn
-        Left = 488
-        Top = 24
-        Width = 75
-        Height = 25
-        Caption = 'BTNCheck'
-        TabOrder = 4
-        OnClick = BTNCheckClick
-        SkinData.SkinSection = 'BUTTON'
-      end
     end
   end
   object MenuMain: TMainMenu

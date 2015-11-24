@@ -110,9 +110,11 @@ type
     SQLTempid_visitor: TIntegerField;
     SQLTempfio_visitor: TWideStringField;
     DSTemp: TDataSource;
+    SQLTempdt_calc: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure SQLVisitCurrentSessionCalcFields(DataSet: TDataSet);
     procedure SQLHistoryCalcFields(DataSet: TDataSet);
+    procedure SQLTempCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -156,4 +158,16 @@ begin
   Base.SQLHistoryTimeVisit.Value:=Format('%d ÷ %d ì %', [H, M])
  else Base.SQLHistoryTimeVisit.Value:='';
 end;
+procedure TBase.SQLTempCalcFields(DataSet: TDataSet);
+var
+   minute,H, M, S: Integer;
+begin
+ minute:=Base.SQLTempminute_visit.Value;
+ H := (minute*60) div 3600;
+ M := ((minute*60) - H * 3600) div 60;
+ if minute<>0 then
+  Base.SQLTempdt_calc.Value:=Format('%d ÷ %d ì %', [H, M])
+ else Base.SQLTempdt_calc.Value:='';
+end;
+
 end.
