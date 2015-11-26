@@ -215,9 +215,10 @@ object Base: TBase
     Parameters = <>
     SQL.Strings = (
       
-        'SELECT Visitor.phone_visitor,Visitor.lastvisit_visitor,Visitor.i' +
-        'd_visitor, Visitor.name_visitor, Visitor.discount_visitor, Black' +
-        'list.start_blacklist, Visitor.comment_visitor'
+        'SELECT Visitor.email_visitor,Visitor.phone_visitor,Visitor.lastv' +
+        'isit_visitor,Visitor.id_visitor, Visitor.name_visitor, Visitor.d' +
+        'iscount_visitor, Blacklist.start_blacklist, Visitor.comment_visi' +
+        'tor'
       
         'FROM Visitor LEFT JOIN Blacklist ON Visitor.id_visitor = Blackli' +
         'st.id_visitor'
@@ -248,6 +249,10 @@ object Base: TBase
     object SQLVisitorphone_visitor: TWideStringField
       FieldName = 'phone_visitor'
       Size = 12
+    end
+    object SQLVisitoremail_visitor: TWideStringField
+      FieldName = 'email_visitor'
+      Size = 50
     end
   end
   object DSVisitor: TDataSource

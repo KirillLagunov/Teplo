@@ -30,6 +30,9 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BTNSaveClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure EDITfioVisitorKeyPress(Sender: TObject; var Key: Char);
+    procedure EDITEmailVisitorKeyPress(Sender: TObject; var Key: Char);
+    procedure EDITPhoneVisitorKeyPress(Sender: TObject; var Key: Char);
     
   private
     { Private declarations }
@@ -103,6 +106,25 @@ end;
 procedure TAddVisitor.FormShow(Sender: TObject);
 begin
  if visitor_action='edit' then fio:=EDITfioVisitor.Text;
+end;
+
+procedure TAddVisitor.EDITfioVisitorKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+ if (key in ['a'..'z','A'..'Z',',',#39,'.','"','[',']']) then
+  key:=#0;
+end;
+
+procedure TAddVisitor.EDITEmailVisitorKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+ if not (Key in ['0'..'9','a'..'z','A'..'Z','@','.',#8,'-']) then Key:=#0
+end;
+
+procedure TAddVisitor.EDITPhoneVisitorKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+ if not (key in ['0'..'9','+',#8]) then Key:=#0;
 end;
 
 end.

@@ -711,6 +711,7 @@ object AddVisitor: TAddVisitor
     Width = 313
     Height = 21
     TabOrder = 0
+    OnKeyPress = EDITfioVisitorKeyPress
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET
@@ -727,7 +728,9 @@ object AddVisitor: TAddVisitor
     Top = 96
     Width = 313
     Height = 21
+    MaxLength = 12
     TabOrder = 1
+    OnKeyPress = EDITPhoneVisitorKeyPress
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET
@@ -745,6 +748,7 @@ object AddVisitor: TAddVisitor
     Width = 313
     Height = 21
     TabOrder = 2
+    OnKeyPress = EDITEmailVisitorKeyPress
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET

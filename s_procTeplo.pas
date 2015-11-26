@@ -131,15 +131,31 @@ begin
  begin
   Main.BTNCloseSession.Enabled:=True;
   Main.BTNChangeTime.Enabled:=False;
-  //Main.BTNPay.Enabled:=False;
  end
  else
  begin
   Main.BTNCloseSession.Enabled:=False;
-  Main.BTNCloseSession.Enabled:=True;
-  //Main.BTNPay.Enabled:=True;
+  Main.BTNChangeTime.Enabled:=True;
  end;
  Base.SQLEdit.Active:=False;
+ if Base.SQLVisitCurrentSession.RecordCount=0 then
+ begin
+  Main.BTNPay.Enabled:=False;
+  Main.BTNChangeTime.Enabled:=False;
+ end
+ else
+ begin
+  if Base.SQLVisitCurrentSessiontime_visit.AsString='0' then
+  begin
+   Main.BTNPay.Enabled:=True;
+   Main.BTNChangeTime.Enabled:=True;
+  end
+  else
+  begin
+   Main.BTNPay.Enabled:=False;
+   Main.BTNChangeTime.Enabled:=False;
+  end;
+ end;
 end;
 
 procedure DeleteSelectedVisitor;
@@ -160,7 +176,7 @@ begin
  Application.CreateForm(TVisitorAdd,VisitorAdd);
  Application.ProcessMessages;
  Base.SQLVisitor.SQL.Clear;
- Base.SQLVisitor.SQL.Append('SELECT Visitor.phone_visitor,Visitor.lastvisit_visitor,Visitor.id_visitor, Visitor.name_visitor, Visitor.discount_visitor, Blacklist.start_blacklist, Visitor.comment_visitor');
+ Base.SQLVisitor.SQL.Append('SELECT Visitor.email_visitor,Visitor.phone_visitor,Visitor.lastvisit_visitor,Visitor.id_visitor, Visitor.name_visitor, Visitor.discount_visitor, Blacklist.start_blacklist, Visitor.comment_visitor');
  Base.SQLVisitor.SQL.Append('FROM Visitor LEFT JOIN Blacklist ON Visitor.id_visitor = Blacklist.id_visitor');
  Base.SQLVisitor.SQL.Append('ORDER BY Visitor.name_visitor');
  Base.SQLVisitor.Active:=True;

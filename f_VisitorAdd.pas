@@ -224,6 +224,7 @@ begin
  Application.CreateForm(TAddVisitor,AddVisitor);
  AddVisitor.EDITfioVisitor.Text:=Base.SQLVisitorname_visitor.Value;
  AddVisitor.EDITPhoneVisitor.Text:=Base.SQLVisitorphone_visitor.Value;
+ AddVisitor.EDITEmailVisitor.Text:=Base.SQLVisitoremail_visitor.Value;
  AddVisitor.MEMOCommentVisitor.Text:=Base.SQLVisitorcomment_visitor.Value;
  for i:=0 to AddVisitor.CBBSale.Items.Count do
  begin

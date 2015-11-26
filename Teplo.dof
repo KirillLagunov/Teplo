@@ -66,7 +66,7 @@ AutoIncBuild=0
 MajorVer=0
 MinorVer=0
 Release=0
-Build=155
+Build=169
 Debug=0
 PreRelease=0
 Special=0
@@ -77,7 +77,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=
 FileDescription=
-FileVersion=0.0.0.155
+FileVersion=0.0.0.169
 InternalName=
 LegalCopyright=
 LegalTrademarks=

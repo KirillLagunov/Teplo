@@ -111,6 +111,7 @@ type
     SQLTempfio_visitor: TWideStringField;
     DSTemp: TDataSource;
     SQLTempdt_calc: TStringField;
+    SQLVisitoremail_visitor: TWideStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure SQLVisitCurrentSessionCalcFields(DataSet: TDataSet);
     procedure SQLHistoryCalcFields(DataSet: TDataSet);
